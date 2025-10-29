@@ -1,0 +1,15 @@
+tests/
+examples/
+docs/
+*.md
+!README.md
+!CONTRIBUTING.md
+!LICENSE
+.github/
+.gitignore
+.eslintrc
+jest.config.js
+node_modules/
+.DS_Store
+*.log
+
