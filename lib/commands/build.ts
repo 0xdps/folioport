@@ -34,7 +34,7 @@ export async function buildCommand(options: BuildOptions = {}): Promise<void> {
       } else {
         configResult = await loadConfig('portfolio.config', cwd);
       }
-    } catch (error) {
+    } catch (_error) {
       spinner.fail(chalk.red('Configuration file not found'));
       logger.error('Make sure you\'re in a devfolio project directory');
       logger.info('Looking for: portfolio.config.{json,yaml,yml,toml}');
@@ -57,7 +57,7 @@ export async function buildCommand(options: BuildOptions = {}): Promise<void> {
     let dataResult;
     try {
       dataResult = await loadConfig('data', cwd);
-    } catch (error) {
+    } catch (_error) {
       spinner.fail(chalk.red('Portfolio data file not found'));
       logger.error('Looking for: data.{json,yaml,yml,toml}');
       logger.error('Create a data file with your portfolio content');

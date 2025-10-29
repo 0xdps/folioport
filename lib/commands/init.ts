@@ -182,7 +182,7 @@ dist/
 .env.local
 `;
         await fs.writeFile(path.join(projectPath, '.gitignore'), gitignore);
-      } catch (error) {
+      } catch (_error) {
         logger.warning('Failed to initialize git repository');
       }
     }
@@ -222,7 +222,7 @@ dist/
     if (!isCurrentDir) {
       try {
         await fs.remove(projectPath);
-      } catch (cleanupError) {
+      } catch (_cleanupError) {
         // Ignore cleanup errors
       }
     }

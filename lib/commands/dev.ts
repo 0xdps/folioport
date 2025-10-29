@@ -17,7 +17,7 @@ export async function devCommand(options: DevOptions = {}): Promise<void> {
   // Check if we're in a folioport project
   try {
     await loadConfig('portfolio.config', cwd);
-  } catch (error) {
+  } catch (_error) {
     logger.error('Configuration file not found');
     logger.info('Looking for: portfolio.config.{json,yaml,yml,toml}');
     logger.info('Run "folioport init" to create a new project');
