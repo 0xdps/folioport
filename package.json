@@ -1,6 +1,6 @@
 {
   "name": "folioport",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Developer portfolio generator - beautiful portfolios in seconds",
   "type": "module",
   "bin": {
