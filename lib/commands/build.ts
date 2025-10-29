@@ -36,7 +36,7 @@ export async function buildCommand(options: BuildOptions = {}): Promise<void> {
       }
     } catch (_error) {
       spinner.fail(chalk.red('Configuration file not found'));
-      logger.error('Make sure you\'re in a devfolio project directory');
+      logger.error('Make sure you\'re in a folioport project directory');
       logger.info('Looking for: portfolio.config.{json,yaml,yml,toml}');
       logger.info('Run "folioport init" to create a new project');
       process.exit(1);

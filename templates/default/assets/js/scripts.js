@@ -87,7 +87,7 @@ document.querySelectorAll('.project-card').forEach((card, index) => {
   observer.observe(card);
 });
 
-// Log DevFolio info
-console.log('%c Built with DevFolio ', 'background: #14b8a6; color: white; padding: 4px 8px; border-radius: 4px;');
-console.log('https://github.com/yourusername/devfolio');
+// Log FolioPort info
+console.log('%c Built with FolioPort ', 'background: #14b8a6; color: white; padding: 4px 8px; border-radius: 4px;');
+console.log('https://github.com/0xdps/folioport');
 

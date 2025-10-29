@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Alias for 'devfolio init' to support 'npx create-folioport' syntax
+// Alias for 'folioport init' to support 'npx create-folioport' syntax
 import { initCommand } from '../lib/commands/init.js';
 import type { InitOptions } from '../types/index.js';
 

@@ -1,6 +1,6 @@
-# Contributing to DevFolio
+# Contributing to FolioPort
 
-First off, thank you for considering contributing to DevFolio! It's people like you that make DevFolio such a great tool.
+First off, thank you for considering contributing to FolioPort! It's people like you that make FolioPort such a great tool.
 
 ## Code of Conduct
 
@@ -47,8 +47,8 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/yourusername/devfolio.git
-   cd devfolio
+   git clone https://github.com/0xdps/folioport.git
+   cd folioport
    ```
 
 2. **Install dependencies**
@@ -64,7 +64,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 4. **Create a test portfolio**
    ```bash
    cd /tmp
-   devfolio init test-portfolio
+   folioport init test-portfolio
    cd test-portfolio
    npm run dev
    ```
@@ -72,7 +72,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 ### Project Structure
 
 ```
-devfolio/
+folioport/
 ├── bin/              # CLI entry points
 ├── lib/
 │   ├── commands/     # CLI commands (init, build, dev)
@@ -102,7 +102,7 @@ devfolio/
    ```bash
    # Test init command
    cd /tmp
-   devfolio init test-feature
+   folioport init test-feature
    cd test-feature
    npm run dev
    
@@ -167,11 +167,11 @@ While we don't have automated tests yet (contributions welcome!), please manuall
 
 ### Test Checklist
 
-- [ ] `devfolio --version` works
-- [ ] `devfolio --help` shows help
-- [ ] `devfolio init test` creates project
-- [ ] `devfolio build` builds successfully
-- [ ] `devfolio dev` starts server
+- [ ] `folioport --version` works
+- [ ] `folioport --help` shows help
+- [ ] `folioport init test` creates project
+- [ ] `folioport build` builds successfully
+- [ ] `folioport dev` starts server
 - [ ] Generated HTML is valid
 - [ ] CSS is minified
 - [ ] JS is minified

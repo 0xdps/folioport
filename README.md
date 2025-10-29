@@ -1,10 +1,10 @@
-# DevFolio
+# FolioPort
 
 > **"Your code. Your story. Your portfolio."**
 
 A zero-config static site generator for creating beautiful, performant developer portfolios in seconds.
 
-[![npm version](https://img.shields.io/npm/v/devfolio.svg)](https://www.npmjs.com/package/devfolio)
+[![npm version](https://img.shields.io/npm/v/folioport.svg)](https://www.npmjs.com/package/folioport)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## ✨ Features
@@ -45,26 +45,26 @@ npx create-folioport my-portfolio
 ### Option 2: Global Installation
 
 ```bash
-npm install -g devfolio
-devfolio init my-portfolio
+npm install -g folioport
+folioport init my-portfolio
 ```
 
 ## 🛠️ CLI Commands
 
-### `devfolio init [name]`
+### `folioport init [name]`
 
 Initialize a new portfolio project.
 
 ```bash
 # Basic usage
-devfolio init my-portfolio
+folioport init my-portfolio
 
 # With options
-devfolio init my-portfolio --theme default --git
+folioport init my-portfolio --theme default --git
 
 # Use YAML or TOML instead of JSON
-devfolio init my-portfolio --format yaml
-devfolio init my-portfolio --format toml
+folioport init my-portfolio --format yaml
+folioport init my-portfolio --format toml
 ```
 
 **Options:**
@@ -73,19 +73,19 @@ devfolio init my-portfolio --format toml
 - `--git` - Initialize git repository
 - `--install` - Auto-install dependencies
 
-### `devfolio dev`
+### `folioport dev`
 
 Start development server with hot reload.
 
 ```bash
 # Start on default port (3000)
-devfolio dev
+folioport dev
 
 # Custom port
-devfolio dev --port 8080
+folioport dev --port 8080
 
 # Open browser automatically
-devfolio dev --open
+folioport dev --open
 ```
 
 **Features:**
@@ -94,19 +94,19 @@ devfolio dev --open
 - 🐛 Helpful error messages
 - 📝 Pretty console logs
 
-### `devfolio build`
+### `folioport build`
 
 Build production-ready static site.
 
 ```bash
 # Basic build
-devfolio build
+folioport build
 
 # Custom output directory
-devfolio build --out public
+folioport build --out public
 
 # Clean build
-devfolio build --clean
+folioport build --clean
 ```
 
 **Output includes:**
@@ -139,7 +139,7 @@ my-portfolio/
 
 ## ⚙️ Configuration
 
-DevFolio supports **three configuration formats**: JSON, YAML, and TOML. Choose your favorite!
+FolioPort supports **three configuration formats**: JSON, YAML, and TOML. Choose your favorite!
 
 ### `portfolio.config.json` (or `.yaml` / `.toml`)
 
@@ -312,7 +312,7 @@ technologies = ["React", "Node.js"]
 link = "https://github.com/..."
 ```
 
-**Auto-detection:** DevFolio automatically detects and loads whichever format you use!
+**Auto-detection:** FolioPort automatically detects and loads whichever format you use!
 
 ## 🎨 Customization
 
@@ -328,7 +328,7 @@ vim data.json     # or data.yaml or data.toml
 npm run dev
 ```
 
-DevFolio will automatically detect and load your preferred format!
+FolioPort will automatically detect and load your preferred format!
 
 ### Customize Styling
 
@@ -369,14 +369,14 @@ Edit `index.hbs` to customize the HTML structure:
 
 ```bash
 npm install -g vercel
-devfolio build
+folioport build
 vercel --prod
 ```
 
 ### Netlify
 
 ```bash
-devfolio build
+folioport build
 netlify deploy --prod --dir=dist
 ```
 
@@ -386,7 +386,7 @@ Or use the Netlify UI and drag the `dist/` folder.
 
 ```bash
 # Build to docs folder
-devfolio build --out docs
+folioport build --out docs
 
 # Commit and push
 git add docs
@@ -399,7 +399,7 @@ git push
 ### Static Hosting (AWS S3, Firebase, etc.)
 
 ```bash
-devfolio build
+folioport build
 
 # Upload the dist/ folder to your hosting provider
 ```
@@ -434,8 +434,8 @@ Contributions are welcome! Here's how:
 1. **Fork the repository**
 2. **Clone your fork**
    ```bash
-   git clone https://github.com/yourusername/devfolio.git
-   cd devfolio
+   git clone https://github.com/0xdps/folioport.git
+   cd folioport
    ```
 3. **Install dependencies**
    ```bash
@@ -448,7 +448,7 @@ Contributions are welcome! Here's how:
 5. **Make your changes**
 6. **Test thoroughly**
    ```bash
-   devfolio init test-portfolio
+   folioport init test-portfolio
    cd test-portfolio
    npm run dev
    ```
@@ -460,16 +460,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ### Command not found
 
-Make sure DevFolio is installed globally:
+Make sure FolioPort is installed globally:
 ```bash
-npm install -g devfolio
+npm install -g folioport
 ```
 
 ### Port already in use
 
 Use a different port:
 ```bash
-devfolio dev --port 3001
+folioport dev --port 3001
 ```
 
 ### Build fails
@@ -491,23 +491,23 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/devfolio/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/devfolio/discussions)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/0xdps/folioport/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/0xdps/folioport/discussions)
 - 📧 **Email**: hello@example.com
 
 ## 🌟 Show Your Support
 
-If you find DevFolio useful, please:
+If you find FolioPort useful, please:
 - ⭐ **Star this repository**
 - 🐦 **Share on Twitter**
 - 📝 **Write a blog post**
 
-### Built with DevFolio?
+### Built with FolioPort?
 
 Add this badge to your portfolio's README:
 
 ```markdown
-[![Built with DevFolio](https://img.shields.io/badge/Built%20with-DevFolio-14b8a6)](https://github.com/yourusername/devfolio)
+[![Built with FolioPort](https://img.shields.io/badge/Built%20with-FolioPort-14b8a6)](https://github.com/0xdps/folioport)
 ```
 
 ---
