@@ -3,6 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import chokidar from 'chokidar';
 import express from 'express';
+import { networkInterfaces } from 'os';
 import { Builder } from '../core/builder.js';
 import { logger } from '../utils/logger.js';
 import { loadConfig } from '../utils/config-loader.js';
@@ -91,17 +92,19 @@ export async function devCommand(options: DevOptions = {}): Promise<void> {
   });
   
   // Start server
-  const server = app.listen(port, options.host || 'localhost', () => {
+  const host = options.host || 'localhost';
+  const server = app.listen(port, host, () => {
+    const networkIP = getNetworkIP();
     console.log('\n' + chalk.green('✓ Dev server running!'));
-    console.log('\n' + chalk.bold('  Local:   ') + chalk.cyan(`http://${options.host}:${port}`));
-    console.log(chalk.bold('  Network: ') + chalk.cyan(`http://localhost:${port}`));
+    console.log('\n' + chalk.bold('  Local:   ') + chalk.cyan(`http://${host}:${port}`));
+    console.log(chalk.bold('  Network: ') + chalk.cyan(`http://${networkIP}:${port}`));
     console.log('\n' + chalk.gray('  Press Ctrl+C to stop'));
     console.log(chalk.gray('  Watching for file changes...\n'));
     
     // Open browser if requested
     if (options.open) {
       // Auto-open browser functionality can be added later
-      console.log(chalk.gray(`  Open browser manually: http://${options.host || 'localhost'}:${port}`));
+      console.log(chalk.gray(`  Open browser manually: http://${host}:${port}`));
     }
   });
   
@@ -140,5 +143,23 @@ async function buildSite(cwd: string): Promise<void> {
   });
   
   await builder.build();
+}
+
+function getNetworkIP(): string {
+  const nets = networkInterfaces();
+  
+  for (const name of Object.keys(nets)) {
+    const netInterface = nets[name];
+    if (!netInterface) continue;
+    
+    for (const net of netInterface) {
+      // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+      if (net.family === 'IPv4' && !net.internal) {
+        return net.address;
+      }
+    }
+  }
+  
+  return 'localhost'; // Fallback if no network interface found
 }
 

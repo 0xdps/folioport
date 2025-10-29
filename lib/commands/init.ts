@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
 import ora from 'ora';
+import prompts from 'prompts';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { logger } from '../utils/logger.js';
@@ -12,37 +13,82 @@ import type { InitOptions } from '../../types/index.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function initCommand(name?: string, options: InitOptions = {}): Promise<void> {
-  const inputName = name || 'my-portfolio';
-  const isCurrentDir = inputName === '.';
-  
-  // Get the actual project name and path
-  let projectName: string;
-  let projectPath: string;
-  
-  if (isCurrentDir) {
-    // Use current directory name as project name
-    projectName = path.basename(process.cwd());
-    projectPath = process.cwd();
-  } else {
-    projectName = inputName;
-    projectPath = path.join(process.cwd(), projectName);
-  }
-  
-  // Validate project name (but allow '.' as a special case)
-  if (!isCurrentDir) {
-    const validation = validateProjectName(projectName);
-    if (!validation.valid) {
-      logger.error('Invalid project name:');
-      validation.errors.forEach((err: string) => console.log('  ' + err));
+  console.log(chalk.bold.cyan('\n🚀 Welcome to FolioPort!\n'));
+  console.log(chalk.gray('Let\'s create your amazing developer portfolio...\n'));
+
+  // Interactive prompts
+  const responses = await prompts([
+    {
+      type: 'text',
+      name: 'projectName',
+      message: 'Where should we create your portfolio?',
+      initial: name || 'my-portfolio',
+      hint: 'Use "." for current directory',
+      validate: (value: string) => {
+        if (value === '.') return true;
+        const validation = validateProjectName(value);
+        return validation.valid || validation.errors.join(', ');
+      }
+    },
+    {
+      type: 'text', 
+      name: 'fullName',
+      message: 'What\'s your full name?',
+      initial: 'Your Name',
+      validate: (value: string) => value.length > 0 || 'Name is required'
+    },
+    {
+      type: 'text',
+      name: 'email',
+      message: 'What\'s your email address?',
+      initial: 'your.email@example.com',
+      validate: (value: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value) || 'Please enter a valid email';
+      }
+    },
+    {
+      type: 'select',
+      name: 'configFormat',
+      message: 'Which configuration format would you like to use?',
+      choices: [
+        { title: 'JSON', value: 'json', description: 'Easy to read and write' },
+        { title: 'YAML', value: 'yaml', description: 'Human-friendly format' },
+        { title: 'TOML', value: 'toml', description: 'Configuration focused' }
+      ],
+      initial: 0
+    },
+    {
+      type: 'confirm',
+      name: 'installDeps',
+      message: 'Would you like to install dependencies automatically?',
+      initial: true
+    },
+    {
+      type: prev => prev ? 'confirm' : null,
+      name: 'startServer',
+      message: 'Start the development server after setup?',
+      initial: true
+    }
+  ], {
+    onCancel: () => {
+      console.log(chalk.red('\n❌ Setup cancelled.'));
       process.exit(1);
     }
-  }
+  });
 
-  // Determine config format (default to JSON)
-  const configFormat = options.format || 'json';
-  if (!['json', 'yaml', 'yml', 'toml'].includes(configFormat.toLowerCase())) {
-    logger.error(`Invalid format: ${configFormat}. Use json, yaml, or toml.`);
-    process.exit(1);
+  const { projectName, fullName, email, configFormat, installDeps, startServer } = responses;
+  
+  const isCurrentDir = projectName === '.';
+  let projectPath: string;
+  let actualProjectName: string;
+  
+  if (isCurrentDir) {
+    actualProjectName = path.basename(process.cwd());
+    projectPath = process.cwd();
+  } else {
+    actualProjectName = projectName;
+    projectPath = path.join(process.cwd(), projectName);
   }
   
   // Check if directory already exists (skip for current directory)
@@ -71,7 +117,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     
     // Copy theme files
     const templatesDir = path.join(__dirname, '../../../templates');
-    const themePath = path.join(templatesDir, options.theme || 'default');
+    const themePath = path.join(templatesDir, 'default');
     
     if (!await fs.pathExists(themePath)) {
       spinner.fail(chalk.red(`Theme "${options.theme || 'default'}" not found`));
@@ -136,7 +182,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     
     // Create data file with starter content
     spinner.text = 'Creating starter content...';
-    const starterData = getStarterData(projectName);
+    const starterData = getStarterData(actualProjectName, fullName, email);
     const dataExt = getExtension(configFormat);
     await saveConfig(
       path.join(projectPath, `data${dataExt}`),
@@ -187,31 +233,63 @@ dist/
       }
     }
     
-    // Install dependencies if requested (skip if no dependencies)
-    if (options.install) {
-      spinner.text = 'Checking dependencies...';
-      // Since we don't include folioport as a dependency in the generated package.json,
-      // there's nothing to install. This is intentional - users should install folioport globally.
-      spinner.text = 'Project setup complete...';
+    // Install dependencies if requested
+    if (installDeps) {
+      spinner.text = 'Installing dependencies...';
+      try {
+        // Check if npm is available
+        execSync('npm --version', { stdio: 'ignore' });
+        
+        // Install dependencies in the project directory
+        process.chdir(projectPath);
+        execSync('npm install', { stdio: 'inherit' });
+        
+        spinner.text = 'Dependencies installed successfully...';
+      } catch (_error) {
+        spinner.warn('Failed to install dependencies automatically');
+        logger.warning('You can install them later by running: npm install');
+      }
     }
     
     spinner.succeed(chalk.green('Portfolio project created successfully!'));
     
-    // Show next steps
+    // Show completion message
     console.log('\n' + chalk.bold('🎉 Success! Your portfolio is ready.'));
-    console.log('\n' + chalk.bold('Next steps:'));
-    console.log(chalk.cyan(`  cd ${projectName}`));
-    console.log(chalk.cyan('  npm run dev'));
     
     const configFile = `portfolio.config${getExtension(configFormat)}`;
     const dataFile = `data${getExtension(configFormat)}`;
     
-    console.log('\n' + chalk.gray(`📝 Edit ${dataFile} to customize your portfolio`));
-    console.log(chalk.gray(`⚙️  Edit ${configFile} to configure settings`));
-    console.log(chalk.gray('🎨 Edit assets/css/styles.css to customize styling'));
-    console.log('\n' + chalk.bold('Build for production:'));
-    console.log(chalk.cyan('  npm run build'));
-    console.log('\n' + chalk.gray('💡 Tip: Make sure folioport is installed globally or linked'));
+    // Show what was created
+    console.log('\n' + chalk.bold('📁 Created:'));
+    console.log(chalk.gray(`  ├── ${dataFile} (your portfolio content)`));
+    console.log(chalk.gray(`  ├── ${configFile} (configuration)`));
+    console.log(chalk.gray('  ├── package.json (project setup)'));
+    console.log(chalk.gray('  └── assets/ (images, styles, scripts)'));
+    
+    // Start server if requested
+    if (startServer && installDeps) {
+      console.log('\n' + chalk.bold('🚀 Starting development server...'));
+      try {
+        // Import and run the dev command
+        const { devCommand } = await import('./dev.js');
+        await devCommand();
+      } catch (_error) {
+        logger.warning('Failed to start development server automatically');
+        console.log('\n' + chalk.bold('Manual start:'));
+        if (!isCurrentDir) console.log(chalk.cyan(`  cd ${projectName}`));
+        console.log(chalk.cyan('  folioport dev'));
+      }
+    } else {
+      // Show next steps
+      console.log('\n' + chalk.bold('Next steps:'));
+      if (!isCurrentDir) console.log(chalk.cyan(`  cd ${projectName}`));
+      if (!installDeps) console.log(chalk.cyan('  npm install'));
+      console.log(chalk.cyan('  folioport dev'));
+      
+      console.log('\n' + chalk.gray(`� Edit ${dataFile} to customize your portfolio`));
+      console.log(chalk.gray(`⚙️  Edit ${configFile} to configure settings`));
+      console.log(chalk.gray('🎨 Edit assets/css/styles.css to customize styling'));
+    }
     console.log(chalk.gray('   npm install -g folioport\n'));
     
   } catch (error) {
@@ -231,19 +309,19 @@ dist/
   }
 }
 
-function getStarterData(_projectName: string): any {
+function getStarterData(_projectName: string, fullName: string, email: string): any {
   return {
     hero: {
-      name: 'Your Name',
+      name: fullName,
       tagline: 'Software Developer',
       description: 'Building amazing things on the web',
       image: 'assets/profile.jpg',
       resume: 'assets/resume.pdf',
-      email: 'hello@example.com',
+      email: email,
       cta: {
         primary: {
           text: 'Get In Touch',
-          link: 'mailto:hello@example.com'
+          link: `mailto:${email}`
         },
         secondary: {
           text: 'View Projects',
