@@ -493,7 +493,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/0xdps/folioport/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/0xdps/folioport/discussions)
-- 📧 **Email**: hello@example.com
+- 📧 **Email**: dps.manit@gmail.com
 
 ## 🌟 Show Your Support
 
