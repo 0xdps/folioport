@@ -135,7 +135,7 @@ async function buildSite(cwd: string): Promise<void> {
   
   const builder = new Builder(configResult.data as any, dataResult.data as any, {
     output: '.dev',
-    minify: false,
+    minify: true,
     clean: false
   });
   
