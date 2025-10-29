@@ -1,3 +1,12 @@
+# Source files (we ship compiled dist/)
+bin/
+lib/
+src/
+types/
+!types/*.d.ts
+tsconfig.json
+
+# Development files
 tests/
 examples/
 docs/
@@ -5,6 +14,7 @@ docs/
 !README.md
 !CONTRIBUTING.md
 !LICENSE
+!CHANGELOG.md
 .github/
 .gitignore
 .eslintrc
@@ -12,4 +22,11 @@ jest.config.js
 node_modules/
 .DS_Store
 *.log
+.vscode/
+.idea/
+
+# Development dependencies
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 

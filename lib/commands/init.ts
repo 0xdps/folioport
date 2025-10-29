@@ -91,7 +91,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
       name: projectName,
       version: '1.0.0',
       theme: options.theme,
-      generator: 'devfolio',
+      generator: 'folioport',
       author: {
         name: 'Your Name',
         email: 'hello@example.com'
@@ -151,13 +151,13 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
       description: `Portfolio website for ${projectName}`,
       type: 'module',
       scripts: {
-        dev: 'devfolio dev',
-        build: 'devfolio build',
-        preview: 'devfolio dev --port 8080'
+        dev: 'folioport dev',
+        build: 'folioport build',
+        preview: 'folioport dev --port 8080'
       }
-      // Note: devfolio should be installed globally or linked
+      // Note: folioport should be installed globally or linked
       // devDependencies: {
-      //   devfolio: '^1.0.0'
+      //   folioport: '^1.0.0'
       // }
     };
     
@@ -190,8 +190,8 @@ dist/
     // Install dependencies if requested (skip if no dependencies)
     if (options.install) {
       spinner.text = 'Checking dependencies...';
-      // Since we don't include devfolio as a dependency in the generated package.json,
-      // there's nothing to install. This is intentional - users should install devfolio globally.
+      // Since we don't include folioport as a dependency in the generated package.json,
+      // there's nothing to install. This is intentional - users should install folioport globally.
       spinner.text = 'Project setup complete...';
     }
     
@@ -211,8 +211,8 @@ dist/
     console.log(chalk.gray('🎨 Edit assets/css/styles.css to customize styling'));
     console.log('\n' + chalk.bold('Build for production:'));
     console.log(chalk.cyan('  npm run build'));
-    console.log('\n' + chalk.gray('💡 Tip: Make sure devfolio is installed globally or linked'));
-    console.log(chalk.gray('   npm install -g devfolio\n'));
+    console.log('\n' + chalk.gray('💡 Tip: Make sure folioport is installed globally or linked'));
+    console.log(chalk.gray('   npm install -g folioport\n'));
     
   } catch (error) {
     spinner.fail(chalk.red('Failed to create project'));

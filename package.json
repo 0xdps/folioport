@@ -1,11 +1,11 @@
 {
-  "name": "devfolio",
+  "name": "folioport",
   "version": "1.0.0",
   "description": "Developer portfolio generator - beautiful portfolios in seconds",
   "type": "module",
   "bin": {
-    "devfolio": "./dist/bin/cli.js",
-    "create-devfolio": "./dist/bin/create.js"
+    "folioport": "./dist/bin/cli.js",
+    "create-folioport": "./dist/bin/create.js"
   },
   "main": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
@@ -38,10 +38,20 @@
     "static-site",
     "cli",
     "developer",
-    "website"
+    "website",
+    "typescript",
+    "ssg"
   ],
-  "author": "",
+  "author": "Your Name <your.email@example.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xdps/folioport.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0xdps/folioport/issues"
+  },
+  "homepage": "https://github.com/0xdps/folioport#readme",
   "dependencies": {
     "commander": "^11.0.0",
     "handlebars": "^4.7.8",

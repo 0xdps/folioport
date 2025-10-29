@@ -12,15 +12,15 @@ export async function devCommand(options: DevOptions = {}): Promise<void> {
   const cwd = process.cwd();
   const port = parseInt(options.port?.toString() || '3000');
   
-  console.log(chalk.bold('\n🚀 Starting DevFolio dev server...\n'));
+  console.log(chalk.bold('\n🚀 Starting FolioPort dev server...\n'));
   
-  // Check if we're in a devfolio project
+  // Check if we're in a folioport project
   try {
     await loadConfig('portfolio.config', cwd);
   } catch (error) {
     logger.error('Configuration file not found');
     logger.info('Looking for: portfolio.config.{json,yaml,yml,toml}');
-    logger.info('Run "devfolio init" to create a new project');
+    logger.info('Run "folioport init" to create a new project');
     process.exit(1);
   }
   
@@ -109,7 +109,7 @@ export async function devCommand(options: DevOptions = {}): Promise<void> {
   server.on('error', (error) => {
     if ((error as any).code === 'EADDRINUSE') {
       logger.error(`Port ${port} is already in use`);
-      logger.info(`Try a different port: devfolio dev --port ${port + 1}`);
+      logger.info(`Try a different port: folioport dev --port ${port + 1}`);
     } else {
       logger.error('Server error:');
       console.error(error);

@@ -8,7 +8,7 @@ import { devCommand } from '../lib/commands/dev.js';
 const program = new Command();
 
 program
-  .name('devfolio')
+  .name('folioport')
   .description('Developer Portfolio Generator - Create beautiful portfolio sites')
   .version('1.0.0');
 
