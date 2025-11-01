@@ -1,12 +1,9 @@
-# Source files (we ship compiled dist/)
-bin/
-lib/
+# Source files (we ship compiled build/)
 src/
-types/
-!types/*.d.ts
 tsconfig.json
 
 # Development files
+test/
 tests/
 examples/
 docs/

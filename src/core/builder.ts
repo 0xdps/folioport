@@ -5,7 +5,7 @@ import { minify } from 'html-minifier-terser';
 import { optimizeAssets } from './asset-optimizer.js';
 import { generateSEO, generateMetaTags } from './seo-generator.js';
 import { generateSchema, generateSchemaTag } from './schema-generator.js';
-import type { PortfolioConfig, PortfolioData, BuildOptions, InternalBuildOptions } from '../../types/index.js';
+import type { PortfolioConfig, PortfolioData, BuildOptions, InternalBuildOptions } from '../types/index.js';
 
 export class Builder {
   private config: PortfolioConfig;

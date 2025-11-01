@@ -4,17 +4,17 @@ import fs from 'fs-extra';
 
 describe('FolioPort Core', () => {
   it('should have valid package.json', () => {
-    const packageJsonPath = path.join(__dirname, '../../package.json');
+    const packageJsonPath = path.join(__dirname, '../package.json');
     expect(fs.existsSync(packageJsonPath)).toBe(true);
     
     const packageJson = fs.readJsonSync(packageJsonPath);
     expect(packageJson.name).toBe('folioport');
     expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+$/);
-    expect(packageJson.bin.folioport).toBe('./dist/bin/cli.js');
+    expect(packageJson.bin.folioport).toBe('./build/bin/cli.js');
   });
 
   it('should have required template files', () => {
-    const templateDir = path.join(__dirname, '../../templates/default');
+    const templateDir = path.join(__dirname, '../src/templates/default');
     expect(fs.existsSync(templateDir)).toBe(true);
     
     const indexTemplate = path.join(templateDir, 'index.hbs');
@@ -28,7 +28,7 @@ describe('FolioPort Core', () => {
   });
 
   it('should have TypeScript configuration', () => {
-    const tsconfigPath = path.join(__dirname, '../../tsconfig.json');
+    const tsconfigPath = path.join(__dirname, '../tsconfig.json');
     expect(fs.existsSync(tsconfigPath)).toBe(true);
     
     const tsconfig = fs.readJsonSync(tsconfigPath);

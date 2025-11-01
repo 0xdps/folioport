@@ -4,33 +4,32 @@
   "description": "Developer portfolio generator - beautiful portfolios in seconds",
   "type": "module",
   "bin": {
-    "folioport": "./dist/bin/cli.js"
+    "folioport": "./build/bin/cli.js"
   },
-  "main": "./dist/lib/index.js",
-  "types": "./dist/lib/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib/index.js"
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
     },
     "./builder": {
-      "types": "./dist/lib/core/builder.d.ts",
-      "import": "./dist/lib/core/builder.js"
+      "types": "./build/core/builder.d.ts",
+      "import": "./build/core/builder.js"
     }
   },
   "files": [
-    "dist",
-    "templates",
-    "types"
+    "build"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-templates",
+    "copy-templates": "cp -r src/templates build/",
     "dev": "tsc --watch",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf build",
     "prepublishOnly": "npm run clean && npm run build && npm run lint",
     "test": "jest",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "release": "./scripts/release.sh"
   },
   "keywords": [
@@ -72,14 +71,13 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
+    "roots": ["<rootDir>/test"],
     "testMatch": [
-      "**/__tests__/**/*.test.ts",
-      "**/?(*.)+(spec|test).ts"
+      "<rootDir>/test/**/*.test.ts"
     ],
     "collectCoverageFrom": [
-      "lib/**/*.ts",
-      "!lib/**/*.d.ts",
-      "!lib/**/__tests__/**"
+      "src/**/*.ts",
+      "!src/**/*.d.ts"
     ],
     "passWithNoTests": true
   },

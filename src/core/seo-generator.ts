@@ -1,4 +1,4 @@
-import type { PortfolioConfig, PortfolioData, SEOData } from '../../types/index.js';
+import type { PortfolioConfig, PortfolioData, SEOData } from '../types/index.js';
 
 export function generateSEO(config: PortfolioConfig, data: PortfolioData): SEOData {
   const { site, social, seo = {} } = config;

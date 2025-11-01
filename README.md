@@ -480,7 +480,40 @@ Check that your `data.json` and `portfolio.config.json` are valid JSON:
 node -e "console.log(JSON.parse(require('fs').readFileSync('data.json')))"
 ```
 
-## 📄 License
+## 🏗️ Development Structure
+
+FolioPort source code follows a clean, standard project structure:
+
+```
+folioport/
+├── src/              # All source code
+│   ├── bin/          # CLI scripts
+│   ├── commands/     # Command implementations  
+│   ├── core/         # Core functionality
+│   ├── utils/        # Utility functions
+│   ├── types/        # TypeScript types
+│   └── templates/    # Template files
+├── test/             # All tests
+├── build/            # Build output
+│   ├── templates/    # Templates copied during build
+│   └── ...           # Compiled JS/TS files
+└── scripts/          # Build and release scripts
+```
+
+### Build Process
+
+1. **Compile TypeScript**: `tsc` compiles `src/` to `build/`
+2. **Copy Templates**: `cp -r src/templates build/` copies template files
+3. **Result**: Complete build with both compiled code and template assets
+
+### Key Features
+
+- ✅ **Dynamic Versioning**: Version read from `package.json`
+- ✅ **Complete Source Organization**: Everything in `src/` folder
+- ✅ **Standard Structure**: Follows industry conventions
+- ✅ **Consistent Build**: Templates included in build output
+
+## �📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 

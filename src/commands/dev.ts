@@ -7,7 +7,7 @@ import { networkInterfaces } from 'os';
 import { Builder } from '../core/builder.js';
 import { logger } from '../utils/logger.js';
 import { loadConfig } from '../utils/config-loader.js';
-import type { DevOptions } from '../../types/index.js';
+import type { DevOptions } from '../types/index.js';
 
 export async function devCommand(options: DevOptions = {}): Promise<void> {
   const cwd = process.cwd();

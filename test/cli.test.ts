@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import path from 'path';
 
 describe('CLI Integration', () => {
-  const cliPath = path.join(__dirname, '../../dist/bin/cli.js');
+  const cliPath = path.join(__dirname, '../build/bin/cli.js');
 
   it('should show help when --help flag is used', () => {
     // This test will only work after build, so we'll make it conditional

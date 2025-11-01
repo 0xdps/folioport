@@ -8,7 +8,7 @@ import { execSync } from 'child_process';
 import { logger } from '../utils/logger.js';
 import { validateProjectName } from '../utils/validators.js';
 import { saveConfig, getExtension } from '../utils/config-loader.js';
-import type { InitOptions } from '../../types/index.js';
+import type { InitOptions } from '../types/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -116,7 +116,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     await fs.ensureDir(projectPath);
     
     // Copy theme files
-    const templatesDir = path.join(__dirname, '../../../templates');
+    const templatesDir = path.join(__dirname, '../templates');
     const themePath = path.join(templatesDir, 'default');
     
     if (!await fs.pathExists(themePath)) {

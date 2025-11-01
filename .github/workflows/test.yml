@@ -41,9 +41,9 @@ jobs:
 
       - name: Test CLI functionality
         run: |
-          chmod +x dist/bin/cli.js
-          node dist/bin/cli.js --version
-          node dist/bin/cli.js --help
+          chmod +x build/bin/cli.js
+          node build/bin/cli.js --version
+          node build/bin/cli.js --help
 
       - name: Test portfolio generation
         run: |
@@ -53,7 +53,7 @@ jobs:
           echo '{"site": {"title": "Test Portfolio"}}' > test-config.json
           # Test that the CLI doesn't crash (only for Node 20+ due to timeout command)
           if [[ "${{ matrix.node-version }}" != "18.x" ]]; then
-            timeout 10s node $GITHUB_WORKSPACE/dist/bin/cli.js init test-project --format json || true
+            timeout 10s node $GITHUB_WORKSPACE/build/bin/cli.js init test-project --format json || true
           else
             echo "Skipping timeout test for Node 18.x"
           fi
@@ -86,13 +86,13 @@ jobs:
       - name: Test CLI (Unix)
         if: runner.os != 'Windows'
         run: |
-          chmod +x dist/bin/cli.js
-          node dist/bin/cli.js --version
+          chmod +x build/bin/cli.js
+          node build/bin/cli.js --version
 
       - name: Test CLI (Windows)
         if: runner.os == 'Windows'
         run: |
-          node dist/bin/cli.js --version
+          node build/bin/cli.js --version
 
   trigger-publish:
     name: Trigger Publishing

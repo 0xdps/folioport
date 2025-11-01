@@ -1,4 +1,4 @@
-import type { PortfolioConfig, PortfolioData, SchemaData } from '../../types/index.js';
+import type { PortfolioConfig, PortfolioData, SchemaData } from '../types/index.js';
 
 export function generateSchema(config: PortfolioConfig, data: PortfolioData): SchemaData {
   const { site, social } = config;

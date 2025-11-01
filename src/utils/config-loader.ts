@@ -3,7 +3,7 @@ import path from 'path';
 import yaml from 'js-yaml';
 import toml from '@iarna/toml';
 import { logger } from './logger.js';
-import type { ConfigLoadResult } from '../../types/index.js';
+import type { ConfigLoadResult } from '../types/index.js';
 
 type Parser = (content: string) => any;
 

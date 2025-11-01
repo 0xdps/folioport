@@ -23,5 +23,5 @@ export type {
   ConfigLoadResult,
   SEOData,
   SchemaData
-} from '../types/index.js';
+} from './types/index.js';
 

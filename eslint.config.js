@@ -18,9 +18,9 @@ export default tseslint.config(
   },
   {
     ignores: [
+      "build/**",
       "dist/**",
       "node_modules/**",
-      "templates/**",
       "*.config.js",
       "coverage/**",
     ],

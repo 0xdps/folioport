@@ -4,8 +4,8 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
-    "outDir": "./dist",
-    "rootDir": "./",
+    "outDir": "./build",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -23,14 +23,13 @@
     "types": ["node", "jest"]
   },
   "include": [
-    "bin/**/*",
-    "lib/**/*",
-    "types/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
+    "build",
     "dist",
-    "templates",
+    "test",
     "examples",
     "**/*.test.js",
     "**/*.test.ts"

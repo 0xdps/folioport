@@ -6,7 +6,7 @@ import { Builder } from '../core/builder.js';
 import { logger } from '../utils/logger.js';
 import { validateConfig, validateData } from '../utils/validators.js';
 import { loadConfig } from '../utils/config-loader.js';
-import type { BuildOptions } from '../../types/index.js';
+import type { BuildOptions } from '../types/index.js';
 
 export async function buildCommand(options: BuildOptions = {}): Promise<void> {
   const spinner = ora('Building portfolio...').start();
