@@ -1,6 +1,9 @@
 name: Publish
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       tag:
@@ -21,13 +24,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.commit_sha }}
+          ref: ${{ inputs.commit_sha || github.sha }}
 
       - name: Extract and validate version
         id: get_version
         run: |
           # Extract version from tag
-          TAG_VERSION="${{ inputs.tag }}"
+          if [ "${{ github.event_name }}" = "push" ]; then
+            TAG_VERSION="${{ github.ref_name }}"
+          else
+            TAG_VERSION="${{ inputs.tag }}"
+          fi
           VERSION=$(echo "$TAG_VERSION" | sed 's/^v//')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           echo "TAG=$TAG_VERSION" >> $GITHUB_OUTPUT
