@@ -23,7 +23,7 @@ A zero-config static site generator for creating beautiful, performant developer
 
 ```bash
 # Create a new portfolio
-npx create-folioport my-portfolio
+npx folioport init my-portfolio
 
 # Navigate to your project
 cd my-portfolio
@@ -39,7 +39,7 @@ Open `http://localhost:3000` - Your portfolio is ready! 🎉
 ### Option 1: Using npx (Recommended)
 
 ```bash
-npx create-folioport my-portfolio
+npx folioport init my-portfolio
 ```
 
 ### Option 2: Global Installation
