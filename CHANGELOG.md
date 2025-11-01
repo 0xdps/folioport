@@ -5,6 +5,23 @@ All notable changes to FolioPort will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-11-01
+
+### ✨ Added
+
+- **GitHub Packages Support** - Package now published to both npm and GitHub Packages
+  - Available as `@0xdps/folioport` on GitHub Packages
+  - Parallel publishing workflow for both registries
+- **Improved Workflow Architecture** - Refactored CI/CD pipeline
+  - Centralized version validation job
+  - Parallel publishing to npm, GitHub Packages, and GitHub Releases
+  - Cleaner, more maintainable workflow structure
+
+### 🔧 Fixed
+
+- Updated README documentation to use correct `npx folioport init` command
+- Removed deprecated `create-folioport` references
+
 ## [2.0.1] - 2025-11-01
 
 ### 🔧 Fixed
