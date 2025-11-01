@@ -542,3 +542,15 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node,python,pydev,java,go,visualstudiocode,jetbrains+all
+# FolioPort: Ignore generated portfolio files in root (from testing 'folioport init .')
+/index.hbs
+/assets/
+/data.json
+/data.yaml
+/data.yml
+/data.toml
+/portfolio.config.json
+/portfolio.config.yaml
+/portfolio.config.yml
+/portfolio.config.toml
+/dist/

@@ -325,11 +325,15 @@ function getStarterData(_projectName: string, fullName: string, email: string): 
   return {
     hero: {
       name: fullName,
-      tagline: 'Software Developer',
+      title: 'Software Developer',
+      tagline: 'Building amazing things on the web',
       description: 'Building amazing things on the web',
-      image: 'assets/profile.jpg',
+      image: 'assets/images/profile.svg',
       resume: 'assets/resume.pdf',
       email: email,
+      github: 'https://github.com/yourusername',
+      linkedin: 'https://linkedin.com/in/yourusername',
+      twitter: 'https://twitter.com/yourusername',
       cta: {
         primary: {
           text: 'Get In Touch',
@@ -370,7 +374,7 @@ function getStarterData(_projectName: string, fullName: string, email: string): 
           technologies: ['React', 'Node.js', 'MongoDB'],
           link: 'https://github.com',
           demo: 'https://example.com',
-          image: 'assets/project1.jpg'
+          image: 'assets/images/project1.svg'
         }
       ]
     },

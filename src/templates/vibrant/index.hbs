@@ -191,21 +191,28 @@
   <section class="section experience" id="experience">
     <div class="container">
       <div class="section__header">
-        <h2 class="section__title">Experience</h2>
+        <h2 class="section__title">{{experience.title}}</h2>
         <div class="section__subtitle">My professional journey</div>
       </div>
       
       <div class="timeline">
-        {{#each experience}}
+        {{#each experience.items}}
         <div class="timeline__item">
           <div class="timeline__marker"></div>
           <div class="timeline__content">
             <div class="timeline__card">
-              <h3 class="timeline__title">{{title}}</h3>
+              <h3 class="timeline__title">{{role}}</h3>
               <h4 class="timeline__company">{{company}}</h4>
               <p class="timeline__period">{{period}}</p>
               {{#if description}}
               <p class="timeline__description">{{description}}</p>
+              {{/if}}
+              {{#if technologies}}
+              <div class="timeline__tech">
+                {{#each technologies}}
+                <span class="tech-tag">{{this}}</span>
+                {{/each}}
+              </div>
               {{/if}}
             </div>
           </div>
@@ -221,21 +228,20 @@
   <section class="section projects" id="projects">
     <div class="container">
       <div class="section__header">
-        <h2 class="section__title">Featured Projects</h2>
+        <h2 class="section__title">{{projects.title}}</h2>
         <div class="section__subtitle">Some of my recent work</div>
       </div>
       
       <div class="projects__grid">
-        {{#each projects}}
+        {{#each projects.items}}
         <article class="project-card">
+          {{#if image}}
+          <div class="project-card__image">
+            <img src="{{image}}" alt="{{title}}">
+          </div>
+          {{/if}}
           <div class="project-card__header">
-            <h3 class="project-card__title">
-              {{#if url}}
-              <a href="{{url}}" target="_blank" rel="noopener">{{title}}</a>
-              {{else}}
-              {{title}}
-              {{/if}}
-            </h3>
+            <h3 class="project-card__title">{{title}}</h3>
             <div class="project-card__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -257,15 +263,14 @@
           </div>
           {{/if}}
           
-          {{#if links}}
           <div class="project-card__links">
-            {{#each links}}
-            <a href="{{url}}" target="_blank" rel="noopener" class="project-link">
-              {{title}}
-            </a>
-            {{/each}}
+            {{#if link}}
+            <a href="{{link}}" target="_blank" rel="noopener" class="project-link">GitHub</a>
+            {{/if}}
+            {{#if demo}}
+            <a href="{{demo}}" target="_blank" rel="noopener" class="project-link">Live Demo</a>
+            {{/if}}
           </div>
-          {{/if}}
           
           <div class="project-card__glow"></div>
         </article>

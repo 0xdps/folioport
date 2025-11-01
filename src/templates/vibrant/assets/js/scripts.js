@@ -678,8 +678,3 @@ document.addEventListener('visibilitychange', () => {
     }
   }
 });
-
-// Export for potential external use
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = VibrantTheme;
-}

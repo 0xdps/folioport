@@ -5,6 +5,34 @@ All notable changes to FolioPort will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-11-01
+
+### 🔧 Fixed
+
+- **Project Structure** - Cleaned up root directory
+  - Removed accidentally generated `index.hbs` and `assets/` from root
+  - Added generated portfolio files to `.gitignore` to prevent future accidents
+  - Root directory now only contains source code and configuration
+- **Starter Data Structure** - Fixed hero data to support all themes
+  - Added `hero.title` field (used by vibrant theme)
+  - Kept `hero.tagline` for backward compatibility (used by default/minimal themes)
+  - Added social links directly on hero object (`hero.github`, `hero.linkedin`, `hero.twitter`)
+  - Ensures vibrant theme displays correctly with default starter data
+- **JavaScript Module Warnings** - Removed CommonJS exports from theme scripts
+  - Removed `module.exports` from minimal theme JavaScript
+  - Removed `module.exports` from vibrant theme JavaScript
+  - Eliminates esbuild warnings about CommonJS in ES modules
+- **Minimal Theme** - Fixed experience and projects sections not displaying
+  - Updated template to use correct data structure (`experience.items`, `projects.items`)
+  - Fixed field names: `role` instead of `title` for experience
+  - Added support for project images and technology tags in experience
+  - Added missing CSS for project images and timeline tech tags
+- **Vibrant Theme** - Fixed experience and projects sections not displaying
+  - Updated template to use correct data structure
+  - Fixed field names to match data schema
+  - Added support for project images and technology tags
+  - Added missing CSS for project images
+
 ## [2.1.0] - 2025-11-01
 
 ### ✨ Added
@@ -21,6 +49,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated README documentation to use correct `npx folioport init` command
 - Removed deprecated `create-folioport` references
+- **Fixed missing default images** - Added SVG placeholder images
+  - Profile image placeholder (400x400, teal background)
+  - Project image placeholder (600x400, blue background)
+  - Images included in all three themes
+  - Users can easily replace with their own images
 
 ## [2.0.1] - 2025-11-01
 

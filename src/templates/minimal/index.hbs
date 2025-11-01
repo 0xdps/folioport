@@ -98,16 +98,23 @@
     <!-- Experience Section -->
     {{#if experience}}
     <section class="section" id="experience">
-      <h2 class="section__title">Experience</h2>
+      <h2 class="section__title">{{experience.title}}</h2>
       <div class="timeline">
-        {{#each experience}}
+        {{#each experience.items}}
         <div class="timeline__item">
           <div class="timeline__content">
-            <h3 class="timeline__title">{{title}}</h3>
+            <h3 class="timeline__title">{{role}}</h3>
             <h4 class="timeline__company">{{company}}</h4>
             <p class="timeline__period">{{period}}</p>
             {{#if description}}
             <p class="timeline__description">{{description}}</p>
+            {{/if}}
+            {{#if technologies}}
+            <div class="timeline__tech">
+              {{#each technologies}}
+              <span class="tech">{{this}}</span>
+              {{/each}}
+            </div>
             {{/if}}
           </div>
         </div>
@@ -119,17 +126,14 @@
     <!-- Projects Section -->
     {{#if projects}}
     <section class="section" id="projects">
-      <h2 class="section__title">Projects</h2>
+      <h2 class="section__title">{{projects.title}}</h2>
       <div class="projects">
-        {{#each projects}}
+        {{#each projects.items}}
         <article class="project">
-          <h3 class="project__title">
-            {{#if url}}
-            <a href="{{url}}" target="_blank" rel="noopener">{{title}}</a>
-            {{else}}
-            {{title}}
-            {{/if}}
-          </h3>
+          {{#if image}}
+          <img src="{{image}}" alt="{{title}}" class="project__image">
+          {{/if}}
+          <h3 class="project__title">{{title}}</h3>
           {{#if description}}
           <p class="project__description">{{description}}</p>
           {{/if}}
@@ -140,13 +144,14 @@
             {{/each}}
           </div>
           {{/if}}
-          {{#if links}}
           <div class="project__links">
-            {{#each links}}
-            <a href="{{url}}" target="_blank" rel="noopener" class="project__link">{{title}}</a>
-            {{/each}}
+            {{#if link}}
+            <a href="{{link}}" target="_blank" rel="noopener" class="project__link">GitHub</a>
+            {{/if}}
+            {{#if demo}}
+            <a href="{{demo}}" target="_blank" rel="noopener" class="project__link">Live Demo</a>
+            {{/if}}
           </div>
-          {{/if}}
         </article>
         {{/each}}
       </div>
