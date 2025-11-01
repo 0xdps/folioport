@@ -1,6 +1,6 @@
 {
   "name": "folioport",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Developer portfolio generator - beautiful portfolios in seconds",
   "type": "module",
   "bin": {
@@ -71,7 +71,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "roots": ["<rootDir>/test"],
+    "roots": [
+      "<rootDir>/test"
+    ],
     "testMatch": [
       "<rootDir>/test/**/*.test.ts"
     ],
