@@ -49,6 +49,17 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     },
     {
       type: 'select',
+      name: 'theme',
+      message: 'Which theme would you like to use?',
+      choices: [
+        { title: 'Default', value: 'default', description: 'Clean, professional design' },
+        { title: 'Minimal', value: 'minimal', description: 'Ultra-clean, typography-focused' },
+        { title: 'Vibrant', value: 'vibrant', description: 'Bold, colorful, and dynamic' }
+      ],
+      initial: 0
+    },
+    {
+      type: 'select',
       name: 'configFormat',
       message: 'Which configuration format would you like to use?',
       choices: [
@@ -77,7 +88,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     }
   });
 
-  const { projectName, fullName, email, configFormat, installDeps, startServer } = responses;
+  const { projectName, fullName, email, theme, configFormat, installDeps, startServer } = responses;
   
   const isCurrentDir = projectName === '.';
   let projectPath: string;
@@ -117,11 +128,12 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     
     // Copy theme files
     const templatesDir = path.join(__dirname, '../templates');
-    const themePath = path.join(templatesDir, 'default');
+    const selectedTheme = theme || options.theme || 'default';
+    const themePath = path.join(templatesDir, selectedTheme);
     
     if (!await fs.pathExists(themePath)) {
-      spinner.fail(chalk.red(`Theme "${options.theme || 'default'}" not found`));
-      logger.warning('Available themes: default');
+      spinner.fail(chalk.red(`Theme "${selectedTheme}" not found`));
+      logger.warning('Available themes: default, minimal, vibrant');
       if (!isCurrentDir) {
         await fs.remove(projectPath);
       }
@@ -136,7 +148,7 @@ export async function initCommand(name?: string, options: InitOptions = {}): Pro
     const config = {
       name: projectName,
       version: '1.0.0',
-      theme: options.theme,
+      theme: selectedTheme,
       generator: 'folioport',
       author: {
         name: 'Your Name',
@@ -309,7 +321,7 @@ dist/
   }
 }
 
-function getStarterData(_projectName: string, fullName: string, email: string): any {
+function getStarterData(_projectName: string, fullName: string, email: string): Record<string, unknown> {
   return {
     hero: {
       name: fullName,

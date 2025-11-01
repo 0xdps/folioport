@@ -2,25 +2,16 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { readFileSync } from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { initCommand } from '../commands/init.js';
-import { buildCommand } from '../commands/build.js';
-import { devCommand } from '../commands/dev.js';
+import { initCommand } from '../lib/commands/init.js';
+import { buildCommand } from '../lib/commands/build.js';
+import { devCommand } from '../lib/commands/dev.js';
 
 const program = new Command();
-
-// Read version from package.json (ES module way)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const packageJsonPath = path.join(__dirname, '../../package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
 
 program
   .name('folioport')
   .description('Developer Portfolio Generator - Create beautiful portfolio sites')
-  .version(packageJson.version);
+  .version('1.0.0');
 
 // Init command
 program

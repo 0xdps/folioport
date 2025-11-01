@@ -11,7 +11,7 @@ A zero-config static site generator for creating beautiful, performant developer
 
 - 🚀 **Zero Config** - Works out of the box with sensible defaults
 - 📝 **Data-Driven** - Content managed through JSON, YAML, or TOML
-- 🎨 **Beautiful Theme** - Modern, responsive design with dark mode
+- 🎨 **Beautiful Themes** - Choose from Default, Minimal, or Vibrant themes
 - ⚡ **Lightning Fast** - Static HTML generation, no runtime dependencies
 - 🔍 **SEO Optimized** - Built-in meta tags, structured data, sitemap
 - 🌓 **Dark Mode** - Automatic theme switching with localStorage
@@ -313,6 +313,83 @@ link = "https://github.com/..."
 ```
 
 **Auto-detection:** FolioPort automatically detects and loads whichever format you use!
+
+## 🎨 Themes
+
+FolioPort comes with **three beautiful themes** designed for different styles and preferences. Choose the one that best represents your personal brand!
+
+### 🎯 Default Theme
+
+**Perfect for:** Clean, professional portfolios
+**Style:** Modern, balanced, and timeless
+
+- Clean typography with excellent readability
+- Balanced color scheme with teal accents
+- Professional layout suitable for all industries
+- Smooth animations and hover effects
+- Fully responsive design
+
+```bash
+folioport init my-portfolio --theme default
+```
+
+### 🌟 Minimal Theme
+
+**Perfect for:** Developers who prefer simplicity
+**Style:** Ultra-clean, typography-focused
+
+- Minimal design with maximum impact
+- Typography-first approach
+- Subtle animations and micro-interactions
+- Extremely fast loading
+- Perfect for content-focused portfolios
+
+```bash
+folioport init my-portfolio --theme minimal
+```
+
+### 🚀 Vibrant Theme
+
+**Perfect for:** Creative developers and designers
+**Style:** Bold, colorful, and dynamic
+
+- Eye-catching gradient backgrounds
+- Interactive animations and effects
+- Vibrant color palette with smooth transitions
+- Advanced JavaScript interactions
+- Perfect for showcasing creative work
+
+```bash
+folioport init my-portfolio --theme vibrant
+```
+
+### Theme Features Comparison
+
+| Feature | Default | Minimal | Vibrant |
+|---------|---------|---------|---------|
+| **Color Scheme** | Balanced teal/blue | Monochrome + accent | Rainbow gradients |
+| **Animations** | Subtle | Minimal | Advanced |
+| **Performance** | Fast | Fastest | Fast |
+| **Best For** | Professional | Content-focused | Creative |
+| **Dark Mode** | ✅ | ✅ | ✅ |
+| **Mobile First** | ✅ | ✅ | ✅ |
+| **Accessibility** | ✅ | ✅ | ✅ |
+
+### Switching Themes
+
+You can change themes anytime by updating your config:
+
+```json
+{
+  "theme": "vibrant"
+}
+```
+
+Then rebuild:
+
+```bash
+folioport build
+```
 
 ## 🎨 Customization
 

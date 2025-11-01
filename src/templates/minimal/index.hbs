@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="{{meta.language}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  {{{metaTags}}}
+  
+  <link rel="icon" type="image/svg+xml" href="{{meta.favicon}}">
+  <link rel="stylesheet" href="assets/css/styles.min.css">
+  
+  {{{schemaTag}}}
+</head>
+<body>
+  <!-- Minimal Header -->
+  <header class="header">
+    <nav class="nav">
+      <h1 class="logo">{{hero.name}}</h1>
+      {{#if config.features.darkMode}}
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="toggle-icon">🌙</span>
+      </button>
+      {{/if}}
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="main">
+    <section class="hero">
+      <div class="hero__content">
+        {{#if hero.image}}
+        <div class="hero__image">
+          <img src="{{hero.image}}" alt="{{hero.name}}" />
+        </div>
+        {{else}}
+        <div class="hero__image hero__image--placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        {{/if}}
+        
+        <h1 class="hero__name">{{hero.name}}</h1>
+        <p class="hero__title">{{hero.title}}</p>
+        {{#if hero.tagline}}
+        <p class="hero__tagline">{{hero.tagline}}</p>
+        {{/if}}
+        
+        {{#if hero.location}}
+        <p class="hero__location">📍 {{hero.location}}</p>
+        {{/if}}
+        
+        <div class="hero__links">
+          {{#if hero.email}}
+          <a href="mailto:{{hero.email}}" class="link">Email</a>
+          {{/if}}
+          {{#if hero.phone}}
+          <a href="tel:{{hero.phone}}" class="link">Phone</a>
+          {{/if}}
+          {{#if hero.website}}
+          <a href="{{hero.website}}" target="_blank" rel="noopener" class="link">Website</a>
+          {{/if}}
+          {{#if hero.github}}
+          <a href="{{hero.github}}" target="_blank" rel="noopener" class="link">GitHub</a>
+          {{/if}}
+          {{#if hero.linkedin}}
+          <a href="{{hero.linkedin}}" target="_blank" rel="noopener" class="link">LinkedIn</a>
+          {{/if}}
+          {{#if hero.twitter}}
+          <a href="{{hero.twitter}}" target="_blank" rel="noopener" class="link">Twitter</a>
+          {{/if}}
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    {{#if about}}
+    <section class="section" id="about">
+      <h2 class="section__title">About</h2>
+      <div class="about">
+        <p class="about__text">{{about.bio}}</p>
+        
+        {{#if about.skills}}
+        <div class="skills">
+          <h3 class="skills__title">Skills</h3>
+          <div class="skills__list">
+            {{#each about.skills}}
+            <span class="skill">{{this}}</span>
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </section>
+    {{/if}}
+
+    <!-- Experience Section -->
+    {{#if experience}}
+    <section class="section" id="experience">
+      <h2 class="section__title">Experience</h2>
+      <div class="timeline">
+        {{#each experience}}
+        <div class="timeline__item">
+          <div class="timeline__content">
+            <h3 class="timeline__title">{{title}}</h3>
+            <h4 class="timeline__company">{{company}}</h4>
+            <p class="timeline__period">{{period}}</p>
+            {{#if description}}
+            <p class="timeline__description">{{description}}</p>
+            {{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    <!-- Projects Section -->
+    {{#if projects}}
+    <section class="section" id="projects">
+      <h2 class="section__title">Projects</h2>
+      <div class="projects">
+        {{#each projects}}
+        <article class="project">
+          <h3 class="project__title">
+            {{#if url}}
+            <a href="{{url}}" target="_blank" rel="noopener">{{title}}</a>
+            {{else}}
+            {{title}}
+            {{/if}}
+          </h3>
+          {{#if description}}
+          <p class="project__description">{{description}}</p>
+          {{/if}}
+          {{#if technologies}}
+          <div class="project__tech">
+            {{#each technologies}}
+            <span class="tech">{{this}}</span>
+            {{/each}}
+          </div>
+          {{/if}}
+          {{#if links}}
+          <div class="project__links">
+            {{#each links}}
+            <a href="{{url}}" target="_blank" rel="noopener" class="project__link">{{title}}</a>
+            {{/each}}
+          </div>
+          {{/if}}
+        </article>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <h2 class="section__title">Contact</h2>
+      <div class="contact">
+        <p class="contact__text">Let's connect</p>
+        <div class="contact__links">
+          {{#if hero.email}}
+          <a href="mailto:{{hero.email}}" class="contact__link">{{hero.email}}</a>
+          {{/if}}
+          {{#if hero.phone}}
+          <a href="tel:{{hero.phone}}" class="contact__link">{{hero.phone}}</a>
+          {{/if}}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; {{currentYear}} {{hero.name}}. Built with <a href="https://github.com/0xdps/folioport" target="_blank" rel="noopener">FolioPort</a>.</p>
+  </footer>
+
+  <script src="assets/js/scripts.min.js"></script>
+</body>
+</html>
