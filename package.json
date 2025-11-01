@@ -30,7 +30,8 @@
     "prepublishOnly": "npm run clean && npm run build && npm run lint",
     "test": "jest",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release": "./scripts/release.sh"
   },
   "keywords": [
     "portfolio",

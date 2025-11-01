@@ -1,0 +1,176 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        type: string
+      commit_sha:
+        description: 'Commit SHA to publish'
+        required: true
+        type: string
+
+jobs:
+  publish-npm:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit_sha }}
+
+      - name: Extract and validate version
+        id: get_version
+        run: |
+          # Extract version from tag
+          TAG_VERSION="${{ inputs.tag }}"
+          VERSION=$(echo "$TAG_VERSION" | sed 's/^v//')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TAG=$TAG_VERSION" >> $GITHUB_OUTPUT
+          
+          # Get current package.json version
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          
+          echo "🏷️  Git tag version: $VERSION"
+          echo "📦 package.json version: $PACKAGE_VERSION"
+          
+          # Validate versions match
+          if [ "$VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "❌ Version mismatch!"
+            echo "   Git tag: $TAG_VERSION ($VERSION)"
+            echo "   package.json: $PACKAGE_VERSION"
+            echo ""
+            echo "💡 Please ensure package.json version matches the git tag before publishing."
+            echo "   Run: npm version $VERSION --no-git-tag-version"
+            exit 1
+          fi
+          
+          echo "✅ Version consistency validated: $VERSION"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Fix permissions
+        run: chmod +x dist/bin/cli.js
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-github:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+
+      - name: Extract and validate version
+        id: get_version
+        run: |
+          # Extract version from tag
+          TAG_VERSION="${{ inputs.tag }}"
+          VERSION=$(echo "$TAG_VERSION" | sed 's/^v//')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TAG=$TAG_VERSION" >> $GITHUB_OUTPUT
+          
+          # Get current package.json version
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          
+          echo "🏷️  Git tag version: $VERSION"
+          echo "📦 package.json version: $PACKAGE_VERSION"
+          
+          # Validate versions match
+          if [ "$VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "❌ Version mismatch!"
+            echo "   Git tag: $TAG_VERSION ($VERSION)"
+            echo "   package.json: $PACKAGE_VERSION"
+            echo ""
+            echo "💡 Please ensure package.json version matches the git tag before publishing."
+            echo "   Run: npm version $VERSION --no-git-tag-version"
+            exit 1
+          fi
+          
+          echo "✅ Version consistency validated: $VERSION"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Get commits since last tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -n "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log $PREVIOUS_TAG..HEAD --pretty=format:"- %s (%h)" --reverse)
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" --reverse)
+          fi
+          
+          # Save changelog to file for multiline output
+          echo "$CHANGELOG" > CHANGELOG.tmp
+          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+          cat CHANGELOG.tmp >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.tag }}
+          release_name: Release ${{ steps.get_version.outputs.TAG }}
+          body: |
+            ## 🚀 FolioPort ${{ steps.get_version.outputs.VERSION }}
+
+            ### What's Changed
+            ${{ steps.changelog.outputs.CHANGELOG }}
+
+            ### 📦 Installation
+            ```bash
+            # Install globally
+            npm install -g folioport@${{ steps.get_version.outputs.VERSION }}
+
+            # Or use with npx
+            npx folioport@${{ steps.get_version.outputs.VERSION }} init my-portfolio
+            ```
+
+            ### 🔗 Links
+            - 📚 [Documentation](https://github.com/0xdps/folioport#readme)
+            - 📦 [NPM Package](https://www.npmjs.com/package/folioport)
+            - 🐛 [Report Issues](https://github.com/0xdps/folioport/issues)
+
+            ---
+            **Full Changelog**: https://github.com/0xdps/folioport/compare/$PREVIOUS_TAG...${{ steps.get_version.outputs.TAG }}
+          draft: false
+          prerelease: false
