@@ -173,35 +173,36 @@ jobs:
           cat CHANGELOG.tmp >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      # TEMPORARY: Commented out for testing
-      # - name: Create Release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ needs.validate.outputs.tag }}
-      #     release_name: Release ${{ needs.validate.outputs.tag }}
-      #     body: |
-      #       ## 🚀 FolioPort ${{ needs.validate.outputs.version }}
-      #
-      #       ### What's Changed
-      #       ${{ steps.changelog.outputs.CHANGELOG }}
-      #
-      #       ### 📦 Installation
-      #       ```bash
-      #       # Install globally
-      #       npm install -g folioport@${{ needs.validate.outputs.version }}
-      #
-      #       # Or use with npx
-      #       npx folioport@${{ needs.validate.outputs.version }} init my-portfolio
-      #       ```
-      #
-      #       ### 🔗 Links
-      #       - 📚 [Documentation](https://github.com/0xdps/folioport#readme)
-      #       - 📦 [NPM Package](https://www.npmjs.com/package/folioport)
-      #       - 🐛 [Report Issues](https://github.com/0xdps/folioport/issues)
-      #
-      #       ---
-      #       **Full Changelog**: https://github.com/0xdps/folioport/compare/$PREVIOUS_TAG...${{ needs.validate.outputs.tag }}
-      #     draft: false
-      #     prerelease: false
+      - name: Create Release
+        # Skip for branch pushes during testing
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.validate.outputs.tag }}
+          release_name: Release ${{ needs.validate.outputs.tag }}
+          body: |
+            ## 🚀 FolioPort ${{ needs.validate.outputs.version }}
+
+            ### What's Changed
+            ${{ steps.changelog.outputs.CHANGELOG }}
+
+            ### 📦 Installation
+            ```bash
+            # Install globally
+            npm install -g folioport@${{ needs.validate.outputs.version }}
+
+            # Or use with npx
+            npx folioport@${{ needs.validate.outputs.version }} init my-portfolio
+            ```
+
+            ### 🔗 Links
+            - 📚 [Documentation](https://github.com/0xdps/folioport#readme)
+            - 📦 [NPM Package](https://www.npmjs.com/package/folioport)
+            - 🐛 [Report Issues](https://github.com/0xdps/folioport/issues)
+
+            ---
+            **Full Changelog**: https://github.com/0xdps/folioport/compare/$PREVIOUS_TAG...${{ needs.validate.outputs.tag }}
+          draft: false
+          prerelease: false
