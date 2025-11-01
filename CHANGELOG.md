@@ -5,6 +5,16 @@ All notable changes to FolioPort will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-11-01
+
+### 🔄 Version Bump
+
+This release increments the version to 2.0.0 due to NPM registry constraints. The previous v1.0.0 package was unpublished from NPM, and NPM does not allow republishing the same version number.
+
+**All features from v1.0.0 are included in this release.**
+
+---
+
 ## [1.0.0] - 2025-11-01
 
 ### 🎉 Major Release - Complete Project Restructure
