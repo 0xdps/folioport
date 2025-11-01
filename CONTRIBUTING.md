@@ -73,14 +73,20 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 ```
 folioport/
-├── bin/              # CLI entry points
-├── lib/
+├── src/              # All source code
+│   ├── bin/          # CLI entry point (cli.ts)
 │   ├── commands/     # CLI commands (init, build, dev)
 │   ├── core/         # Core functionality (builder, optimizer, etc.)
-│   └── utils/        # Utility functions
-├── templates/        # Built-in themes
-│   └── default/      # Default theme
-└── tests/            # Test files (if you add them)
+│   ├── utils/        # Utility functions
+│   ├── types/        # TypeScript type definitions
+│   └── templates/    # Built-in themes
+│       ├── default/  # Default theme
+│       ├── minimal/  # Minimal theme
+│       └── vibrant/  # Vibrant theme
+├── test/             # Test files
+├── build/            # Build output (generated)
+├── scripts/          # Build and release scripts
+└── node_modules/     # Dependencies
 ```
 
 ## Development Workflow
@@ -100,6 +106,12 @@ folioport/
 
 3. **Test your changes**
    ```bash
+   # Build the project
+   npm run build
+   
+   # Run tests
+   npm test
+   
    # Test init command
    cd /tmp
    folioport init test-feature
@@ -157,26 +169,48 @@ export function generateSEO(config, data) {
 
 ## Testing
 
-While we don't have automated tests yet (contributions welcome!), please manually test:
+We use Jest for automated testing. Please ensure your changes don't break existing tests and add tests for new features.
 
-1. **Init command** - Creates project correctly
-2. **Build command** - Generates proper output
-3. **Dev server** - Starts and watches files
-4. **Template compilation** - Handlebars works correctly
-5. **Asset optimization** - CSS/JS minified properly
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+### Test Structure
+
+Our test suite covers:
+- **CLI Tests** (`test/cli.test.ts`) - CLI commands and version handling
+- **Utils Tests** (`test/utils.test.ts`) - Utility functions
+- **Core Tests** (`test/core.test.ts`) - Core functionality
 
 ### Test Checklist
 
-- [ ] `folioport --version` works
-- [ ] `folioport --help` shows help
-- [ ] `folioport init test` creates project
-- [ ] `folioport build` builds successfully
-- [ ] `folioport dev` starts server
-- [ ] Generated HTML is valid
-- [ ] CSS is minified
-- [ ] JS is minified
-- [ ] Sitemap is generated
-- [ ] SEO tags are present
+Before submitting a PR, ensure:
+
+- [ ] All existing tests pass (`npm test`)
+- [ ] New features have test coverage
+- [ ] Code passes linting (`npm run lint`)
+- [ ] Build succeeds (`npm run build`)
+- [ ] Manual testing completed:
+  - [ ] `folioport --version` works
+  - [ ] `folioport --help` shows help
+  - [ ] `folioport init test` creates project with all themes
+  - [ ] `folioport build` builds successfully
+  - [ ] `folioport dev` starts server
+  - [ ] Generated HTML is valid
+  - [ ] CSS is minified
+  - [ ] JS is minified
+  - [ ] Sitemap is generated
+  - [ ] SEO tags are present
+  - [ ] All themes work correctly
 
 ## Documentation
 
@@ -188,16 +222,65 @@ When adding new features, please update:
 
 ## Creating Themes
 
-Want to contribute a new theme? Great!
+Want to contribute a new theme? Great! We now have three themes and would love more.
 
-1. Create a new directory in `templates/`
-2. Include:
-   * `index.hbs` - Main template
+### Theme Requirements
+
+1. Create a new directory in `src/templates/<theme-name>/`
+2. Include these required files:
+   * `index.hbs` - Main Handlebars template
    * `assets/css/styles.css` - Theme styles
-   * `assets/js/scripts.js` - Theme scripts (if needed)
-3. Follow the existing theme structure
-4. Test thoroughly with different data
-5. Submit a PR with screenshots
+   * `assets/js/scripts.js` - Theme scripts
+3. Follow the existing data structure (hero, about, projects, experience, etc.)
+4. Support all standard features:
+   * Dark mode
+   * Responsive design
+   * Accessibility
+   * SEO optimization
+
+### Theme Development Process
+
+1. **Study Existing Themes**
+   ```bash
+   # Check out the existing themes
+   ls src/templates/
+   # default/  minimal/  vibrant/
+   ```
+
+2. **Create Theme Structure**
+   ```bash
+   mkdir -p src/templates/my-theme/assets/{css,js}
+   touch src/templates/my-theme/index.hbs
+   touch src/templates/my-theme/assets/css/styles.css
+   touch src/templates/my-theme/assets/js/scripts.js
+   ```
+
+3. **Build and Test**
+   ```bash
+   # Build to include new theme
+   npm run build
+   
+   # Test with new theme
+   folioport init test-theme --theme my-theme
+   cd test-theme
+   npm run dev
+   ```
+
+4. **Submit PR with:**
+   * Screenshots of the theme
+   * Description of the design philosophy
+   * Any special features or interactions
+   * Update to README.md theme comparison table
+   * Test coverage
+
+### Theme Style Guide
+
+- Use CSS variables for easy customization
+- Support both light and dark modes
+- Make it fully responsive (mobile-first)
+- Keep performance in mind
+- Follow accessibility best practices (WCAG 2.1)
+- Include smooth animations (but respect `prefers-reduced-motion`)
 
 ## Questions?
 

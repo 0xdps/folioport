@@ -89,6 +89,16 @@ else
     exit 1
 fi
 
+# Run linting
+print_status "Running linter..."
+if npm run lint; then
+    print_success "Linting passed"
+else
+    print_error "Linting failed. Please fix issues before releasing."
+    git checkout package.json package-lock.json 2>/dev/null || true
+    exit 1
+fi
+
 # Build the project
 print_status "Building project..."
 if npm run build; then
@@ -102,7 +112,24 @@ fi
 # Commit the version change
 print_status "Committing version change..."
 git add package.json package-lock.json
-git commit -m "chore: bump version to $VERSION"
+
+# Check if CHANGELOG.md has been updated for this version
+if grep -q "\[$VERSION\]" CHANGELOG.md; then
+    print_status "CHANGELOG.md includes version $VERSION, adding to commit..."
+    git add CHANGELOG.md
+    git commit -m "chore: release version $VERSION"
+else
+    print_warning "CHANGELOG.md doesn't include version $VERSION"
+    print_warning "Please update CHANGELOG.md before releasing"
+    read -p "Continue without CHANGELOG update? (y/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        git checkout package.json package-lock.json 2>/dev/null || true
+        print_status "Release cancelled. Please update CHANGELOG.md and try again."
+        exit 1
+    fi
+    git commit -m "chore: bump version to $VERSION"
+fi
 
 # Create and push tag
 print_status "Creating and pushing tag $TAG..."
@@ -113,7 +140,9 @@ git push origin $TAG
 print_success "Release $VERSION completed successfully!"
 print_status "GitHub Actions will now:"
 print_status "  1. Run tests"
-print_status "  2. Publish to NPM"
-print_status "  3. Create GitHub release"
+print_status "  2. Build project with all themes"
+print_status "  3. Publish to NPM"
+print_status "  4. Create GitHub release"
 print_status ""
-print_status "Monitor the progress at: https://github.com/0xdps/folioport/actions"
+print_status "View release notes: https://github.com/0xdps/folioport/blob/trunk/CHANGELOG.md"
+print_status "Monitor progress: https://github.com/0xdps/folioport/actions"

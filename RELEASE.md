@@ -20,6 +20,12 @@ This script will:
 6. ✅ Create and push git tag
 7. ✅ Trigger GitHub Actions for publishing
 
+**Before releasing:**
+- Update CHANGELOG.md with new version details
+- Test all themes (default, minimal, vibrant)
+- Verify all tests pass
+- Check documentation is up-to-date
+
 ## 📋 Manual Release Steps
 
 If you prefer manual control:
@@ -34,12 +40,16 @@ npm version 1.2.3 --no-git-tag-version
 ```bash
 npm test
 npm run build
+npm run lint
 ```
 
-### 3. Commit and Tag
+### 3. Update CHANGELOG.md
+Add release notes for the new version following the format in CHANGELOG.md.
+
+### 4. Commit and Tag
 ```bash
-git add package.json package-lock.json
-git commit -m "chore: bump version to 1.2.3"
+git add package.json package-lock.json CHANGELOG.md
+git commit -m "chore: release version 1.2.3"
 git tag v1.2.3
 git push origin trunk
 git push origin v1.2.3
@@ -81,6 +91,7 @@ Each release creates:
 - 📦 **NPM Package**: `npm install folioport@1.2.3`
 - 🏷️ **GitHub Release**: With changelog and assets
 - 🔗 **Release Notes**: Auto-generated from CHANGELOG.md
+- 🎨 **Three Themes**: Default, Minimal, and Vibrant included
 
 ## 🔧 Troubleshooting
 

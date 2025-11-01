@@ -602,7 +602,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 📞 Support
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/0xdps/folioport/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/0xdps/folioport/discussions)
 - 📧 **Email**: dps.manit@gmail.com
 
 ## 🌟 Show Your Support
