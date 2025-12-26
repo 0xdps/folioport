@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FolioPort - Host your developer portfolio in seconds. Beautiful, professional portfolios made simple.">
+    <meta name="keywords" content="portfolio, hosting, developer, website, professional">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://folioport.me/">
+    <meta property="og:title" content="FolioPort - Beautiful Developer Portfolios">
+    <meta property="og:description" content="Create and host your professional developer portfolio in seconds. Coming Soon.">
+    
+    <title>FolioPort - Coming Soon</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #14b8a6;
+            --color-secondary: #3b82f6;
+            --color-accent: #f59e0b;
+            --color-dark: #0f172a;
+            --color-light: #f8fafc;
+            --gradient: linear-gradient(135deg, #14b8a6 0%, #3b82f6 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--color-dark);
+            color: var(--color-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* Animated background gradient */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .description {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .feature-text {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .notify-section {
+            margin-top: 3rem;
+        }
+
+        .notify-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto 1rem;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-light);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .email-input::placeholder {
+            color: #64748b;
+        }
+
+        .notify-btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.3);
+        }
+
+        .notify-btn:active {
+            transform: translateY(0);
+        }
+
+        .notify-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            color: var(--color-primary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+        }
+
+        .social-links {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--color-primary);
+            transform: scale(1.2);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--color-accent);
+            border-radius: 20px;
+            color: var(--color-accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.25rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <div class="status-badge">🚀 Coming Soon</div>
+        
+        <h1 class="logo">FolioPort</h1>
+        <p class="tagline">Your code. Your story. Your portfolio.</p>
+        
+        <p class="description">
+            We're building the easiest way for developers to create and host beautiful, 
+            professional portfolios. Sign up to be notified when we launch!
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Instant Setup</div>
+                <div class="feature-text">Create your portfolio in minutes, not hours</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-title">Beautiful Themes</div>
+                <div class="feature-text">Choose from stunning, customizable templates</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">Free Hosting</div>
+                <div class="feature-text">Deploy instantly with your custom domain</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">SEO Optimized</div>
+                <div class="feature-text">Get discovered with built-in SEO best practices</div>
+            </div>
+        </div>
+
+        <div class="notify-section">
+            <h2 class="notify-title">Get notified when we launch</h2>
+            <form class="email-form" id="notifyForm">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email"
+                    required
+                    id="emailInput"
+                    autocomplete="email"
+                >
+                <button type="submit" class="notify-btn" id="submitBtn">
+                    Notify Me
+                </button>
+            </form>
+            <div class="success-message" id="successMessage">
+                ✨ Thanks! We'll notify you when we launch.
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://github.com/0xdps/folioport" class="social-link" target="_blank" rel="noopener" title="GitHub">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+            <a href="https://www.npmjs.com/package/folioport" class="social-link" target="_blank" rel="noopener" title="NPM">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z"/>
+                </svg>
+            </a>
+            <a href="mailto:dps.manit@gmail.com" class="social-link" title="Email">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('notifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('emailInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            
+            const email = emailInput.value.trim();
+            
+            if (!email) return;
+            
+            // Disable form
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                // TODO: Replace with your actual email collection service
+                // Options: Mailchimp, ConvertKit, Buttondown, etc.
+                // For now, we'll just log it and show success
+                console.log('Email submitted:', email);
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Show success message
+                successMessage.classList.add('show');
+                emailInput.value = '';
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Notify Me';
+                }, 3000);
+                
+                // Optional: Store in localStorage to prevent duplicate submissions
+                localStorage.setItem('folioport_notify', email);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me';
+                alert('Something went wrong. Please try again.');
+            }
+        });
+
+        // Check if user already submitted
+        if (localStorage.getItem('folioport_notify')) {
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('submitBtn').textContent = 'Already Subscribed';
+            document.getElementById('submitBtn').disabled = true;
+        }
+    </script>
+</body>
+</html>
